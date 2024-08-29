@@ -1,0 +1,133 @@
+% Harus dimuat terlebih dahulu, digunakan agar file PDF memiliki format karakter yang benar.
+% Untuk informasi lebih lanjut, lihat https://ctan.org/pkg/cmap.
+\RequirePackage{cmap}
+
+% Format dokumen sebagai paper konferensi menggunakan aturan IEEEtran terbaru (v1.8b).
+% Untuk informasi lebih lanjut, lihat http://www.michaelshell.org/tex/ieeetran/.
+\documentclass[a4paper, conference]{IEEEtran}
+
+% Format encoding font dan input menjadi 8-bit UTF-8.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+% Digunakan untuk mengatur margin dokumen.
+\usepackage{textcomp}
+
+% Format bahasa menjadi bahasa indonesia dan inggris.
+\usepackage[indonesian]{babel}
+
+% Digunakan untuk tujuan demonstrasi.
+\usepackage{mwe}
+
+% Digunakan untuk menampilkan font dengan style yang lebih baik.
+\usepackage[zerostyle=b,scaled=.75]{newtxtt}
+
+% Digunakan untuk menampilkan tabel dengan style yang lebih baik.
+\usepackage{booktabs}
+\usepackage[table,xcdraw]{xcolor}
+% Digunakan untuk menampilkan gambar pada dokumen.
+\usepackage{graphicx}
+
+% Digunakan untuk menampilkan potongan kode.
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fixed,
+  basewidth=.5em,
+  xleftmargin=0.5cm,
+  captionpos=b
+}
+
+\usepackage{tabularx}
+\usepackage{wrapfig}
+% Digunakan agar backticks (`) dapat dirender pada PDF.
+% Untuk informasi lebih lanjut, lihat https://tex.stackexchange.com/a/341057/9075.
+\usepackage{upquote}
+
+% Digunakan untuk menyeimbangkan bagian akhir dokumen dengan dua kolom.
+\usepackage{balance}
+
+% Kapitalisasi caption tabel
+\usepackage{caption}
+\captionsetup[table]{
+    justification=centering, % Memusatkan caption
+    labelsep=newline, % Memisahkan label "TABLE 1" dengan judul dengan baris baru
+    textfont={sc}, % Membuat teks menjadi kapital
+    labelfont={sc} % Membuat teks menjadi kapital
+}
+
+
+% Digunakan untuk menampilkan pustaka.
+\usepackage[square,comma,numbers,sort&compress]{natbib}
+
+% Mengubah format ukuran teks pada natbib.
+\renewcommand{\bibfont}{\normalfont\footnotesize}
+
+% Jika melebihi 3 penulis dapat dilakukan linebreakend 
+\makeatletter
+\newcommand{\linebreakand}{%
+  \end{@IEEEauthorhalign}
+  \hfill\mbox{}\par
+  \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
+
+% Menambah nama penulis ketika menggunakan perintah \citet.
+% Untuk informasi lebih lanjut, lihat https://tex.stackexchange.com/a/76075/9075.
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@hyper@{\NAT@nm}}{}{}
+\makeatother
+
+% Digunakan untuk melakukan linewrap pada pustaka dengan url yang panjang
+% jika terdapat hyphens
+\usepackage[hyphens]{url}
+
+% Digunakan untuk menambah hyperlink pada referensi.
+\usepackage{hyperref}
+
+% Menonaktifkan warna dan bookmark pada hyperref.
+\hypersetup{hidelinks,
+  colorlinks=true,
+  allcolors=black,
+  pdfstartview=Fit,
+  breaklinks=true
+}
+
+% Digunakan untuk membenarkan hyperref pada gambar.
+\usepackage[all]{hypcap}
+
+% Digunakan untuk menampilkan beberapa gambar
+%\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{stfloats}
+\usepackage{float}
+\input{pustaka/variables.tex}
+\input{pustaka/tanda-hubung.tex}
+
+\begin{document}
+
+\input{deskripsi/judul-en.tex}
+\input{deskripsi/abstrak-en.tex}
+
+% Ubah bagian berikut sesuai dengan konten-konten yang akan dimasukkan pada dokumen
+\input{konten/en/1-introduction.tex}
+\input{konten/en/2-literature-review.tex}
+\input{konten/en/3-design-and-implementation.tex}
+\input{konten/en/4-result-discussion.tex}
+\input{konten/en/5-conclusion.tex}
+% Ucapan terima kasih jika ada
+\input{konten/id/6-ucapan-terima-kasih.tex}
+
+% Menampilkan daftar pustaka dengan format IEEE
+\bibliographystyle{IEEEtranN}
+\bibliography{pustaka/pustaka.bib}
+
+% Menyeimbangkan bagian akhir di kedua kolom
+\balance
+
+\end{document}

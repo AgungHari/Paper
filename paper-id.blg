@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: paper-id.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: pustaka/pustaka.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in fibrianianalisis
+
+Done.
+You've used 10 entries,
+            4087 wiz_defined-function locations,
+            892 strings with 10516 characters,
+and the built_in function-call counts, 7806 in all, are:
+= -- 565
+> -- 334
+< -- 27
++ -- 168
+- -- 78
+* -- 404
+:= -- 1179
+add.period$ -- 20
+call.type$ -- 10
+change.case$ -- 11
+chr.to.int$ -- 45
+cite$ -- 11
+duplicate$ -- 567
+empty$ -- 578
+format.name$ -- 85
+if$ -- 1774
+int.to.chr$ -- 0
+int.to.str$ -- 10
+missing$ -- 139
+newline$ -- 67
+num.names$ -- 10
+pop$ -- 364
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 577
+stack$ -- 0
+substring$ -- 143
+swap$ -- 446
+text.length$ -- 12
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 10
+warning$ -- 1
+while$ -- 19
+width$ -- 12
+write$ -- 132
+(There was 1 warning)

@@ -1,0 +1,23 @@
+# BEGIN: LaTeX
+*.aux
+*.log
+*.synctex.gz
+*.pdf
+*.dvi
+*.bbl
+*.blg
+*.toc
+*.lof
+*.lot
+*.out
+*.gz
+*.fdb_latexmk
+*.fls
+*.xdv
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*.bcf
+*.blx.bib
+# END: LaTeX
