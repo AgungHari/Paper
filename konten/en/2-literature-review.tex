@@ -1,0 +1,115 @@
+% Change the following title and label as desired.
+\section{Literature Review}
+\label{sec:literaturereview}
+
+\subsection{Object Detection}
+Real-time object detection has emerged as a critical component in various applications, including autonomous vehicles, robotics, video surveillance, and augmented reality. Among various object detection algorithms, the YOLO (\emph{You Only Look Once}) framework stands out for its exceptional balance of speed and accuracy, enabling fast and reliable object identification in images. Since its introduction, the YOLO family has evolved through several iterations, each version building upon the previous to address limitations and improve performance.
+
+\subsection{YOLO (\emph{You Only Look Once})}
+YOLO, introduced by \cite{YOLO}. Joseph Redmon first introduced the \emph{End to end} approach to real-time object detection. The name YOLO, which stands for \emph{"You Only Look Once"}, refers to its ability to complete the detection task in a single network pass, unlike previous approaches that used sliding windows followed by classifiers that had to be run hundreds or thousands of times per image or more sophisticated methods that divided the task into two steps, where the first step detected possible regions with objects or region proposals, and the second step ran a classifier on those proposals. Additionally, YOLO uses a simpler output based solely on regression to predict detection outputs, as opposed to Fast R-CNN, which uses two separate outputs, a classification for probability, and regression for \emph{box} coordinates \cite{YOLO}.
+
+\subsection{YOLOv8}
+YOLOv8 was launched in January 2023 by \emph{Ultralytics}, the company that developed YOLOv5. YOLOv8 provides five scale versions: YOLOv8n (nano), YOLOv8s (small), YOLOv8m (medium), YOLOv8l (large), and YOLOv8x (extra large). YOLOv8 supports various vision tasks such as object detection, segmentation, pose estimation, tracking, and classification \cite{Yolov8}. The YoloV8 architecture consists of Convolution 2D layers, C2f (Cross Stage Partial Network), SPPF, Upsampling, and Concate. Figure \ref{fig:Arsitektur Yolov8} shows the detailed YOLOv8 architecture.
+
+% Example image input
+\begin{figure}[H]
+  \centering
+
+  % Change with the desired image file name and size
+  \includegraphics[scale=0.5]{gambar/YoloV8Architecture.jpg}
+
+  % Change with the desired image caption
+  \caption{YOLOv8 Architecture.}
+  \label{fig:Arsitektur Yolov8}
+\end{figure}
+
+
+\subsection{Pose Estimation}
+Pose estimation is the task of using machine learning (\emph{ML}) models to estimate a person's pose from an image or video by estimating the spatial locations of key body joints (\emph{keypoints}). Pose estimation refers to a computer vision technique that detects the human figure in images and videos, allowing one to determine, for example, where a person's elbow appears in an image. It is important to recognize that pose estimation only estimates where key body joints are and does not identify who is in the image or video \cite{tensorflow2015-whitepaper}.
+
+\subsection{MediaPipe}
+MediaPipe is a framework designed by Google for building real-time perception pipelines. MediaPipe allows developers to integrate various types of sensor data, such as video, and other data into one efficient platform that can run on various devices, from mobile to desktop \cite{MediaPipe}.
+
+This framework uses the concept of a "graph" where each node in the graph is a "calculator" that performs specific tasks, such as object detection, pose tracking, or image segmentation. Each of these nodes can be configured through GraphConfig, which describes the topology and functionality of these nodes.
+
+\subsection{MediaPipe Pose}
+MediaPipe Pose (MPP), an open-source cross-platform framework provided by Google, is used to obtain estimates of human joint coordinates in 2D in each image frame. MediaPipe Pose builds pipelines and processes cognitive data in the form of videos using machine learning (ML). MPP uses BlazePose, which extracts 33 2D landmarks on the human body, as shown in Figure \ref{fig:Pose MediaPipe}. BlazePose is a lightweight machine learning architecture that achieves real-time performance on mobile phones and PCs with CPU inference. When using normalized coordinates for pose estimation, the inverse ratio must be multiplied by the y-axis pixel value \cite{MediapipePose}.
+
+% Example image input
+\begin{figure}[H]
+  \centering
+
+  % Change with the desired image file name and size
+  \includegraphics[scale=0.5]{gambar/mp_pose.jpg}
+
+  % Change with the desired image caption
+  \caption{MediaPipe Pose}
+  \label{fig:Pose MediaPipe}
+\end{figure}
+
+\subsection*{Precision}
+Precision is the ratio where TP (true positive) represents the number of true positives and FP (false positive) represents the number of false positives, serving as an evaluation metric in the context of machine learning. It provides a measure of the ratio of correct positive predictions to all positive predictions made by the model. In other words, precision gives insight into how accurately the model makes positive predictions. More specifically, precision reflects how often the model successfully classifies instances as positive within the entire dataset. The precision value can indicate how well the model can provide correct predictions in a positive context. The precision value ranges between 0 and 1, where a value of 1 indicates that all positive predictions made by the model are correct, while a value of 0 indicates that none of the positive predictions are correct.
+
+\begin{equation}
+    \frac{TP}{TP+FP}
+\end{equation}
+
+The above equation presents the comparison between correct positive predictions and the total positive predictions given by the model, providing a deeper insight into the model's ability to produce accurate results in the desired category.
+
+\subsection*{Recall}
+Recall is a metric used to measure the ratio of correctly identified positive data to all positive data. Recall provides information about how well a machine learning model finds all positive data. The recall value ranges from 0 to 1. High recall indicates that many positive classes are correctly recognized, or few false negatives are obtained. The formula for recall can be seen in the equation below:
+
+\begin{equation}
+    \frac{TP}{TP+FN}
+\end{equation}
+
+Recall is the ratio where TP (true positive) represents the number of true positives and FN (false negative) represents the number of false negatives.
+
+\subsection*{Mean Average Precision (mAP)}
+Mean Average Precision (mAP) is an accuracy metric obtained by calculating the average of the Average Precision (AP). AP itself is obtained through precision and recall calculations. Therefore, mAP can be considered a very informative evaluation metric in assessing a system's performance.
+
+\begin{equation}
+    AP=\sum ((Recall_{n+1}-Recall_{n})\times Precision_{interp})
+\end{equation}
+
+\begin{equation}
+  \times Recall_{n+1})
+\end{equation}
+\begin{equation}
+    mAP=\frac{1}{n}\sum_{n}^{i=1}AP_{i}
+\end{equation}
+
+\subsection{Intersection over Union (IoU)}
+\label{subsec:intersectionoverunion}
+
+Intersection over Union, or IoU, is a metric used to evaluate the accuracy of object position detected by a model in image processing. The principle is to calculate the intersection area between the detection box produced by the model and the reference box, which is the gold standard or Ground Truth. This ratio is obtained by comparing the intersection area of the two boxes to the total area they cover together. If we imagine these two boxes as a single unit, IoU gives us a score that measures how well our model predicts the actual object's location. The larger the intersection area relative to the combined total area, the higher the IoU value, indicating better prediction accuracy. Systematically, this is written as:
+
+% Example equation
+\begin{equation}
+IntersectionoverUnion(IoU) = \frac{\left |A\bigcap B  \right |}{\left | A\bigcup B \right |}.
+\end{equation}
+
+\subsection{Intel NUC}
+Intel NUC (Next Unit of Computing) is a compact and powerful computing solution designed by Intel to meet various computing needs, from home entertainment to gaming and professional tasks. The Intel NUC features Intel Core processors in a compact 4x4 inch form factor. It is designed to offer the size, performance, sustainability, and reliability needed by modern businesses. Certain Intel NUC models also include Intel vPro® Enterprise technology with enhanced security. This mini PC is upgradable and repairable, making it a versatile choice for various business applications, including client computing, edge computing, and digital signage.
+
+\subsection{ESP32 Devkit V1}
+
+The ESP32 Devkit V1 is a development board created by DOIT to run the ESP-WROOM-32 module made by Espressif. The ESP32 Devkit is known as a feature-rich development board with integrated Wi-Fi and Bluetooth connectivity for various applications. This Devkit has many pins that allow it to be programmed with multiple tasks.
+
+\subsection{H-Bridge Motor Driver}
+
+An H-Bridge motor driver is an electronic circuit used to control the direction and speed of a DC motor. It works based on four switches forming an H-Bridge, where by controlling the opening and closing of these switches, we can control the direction of the current flowing to the motor. Thus, we can change the rotation direction of the DC motor. The H-Bridge motor driver consists of a set of transistors that function as motor controllers, especially those requiring significant current and voltage. Additionally, the H-Bridge circuit can also provide a braking function to the motor by connecting the two motor terminals, allowing the motor to stop more quickly \cite{fibrianianalisis}.
+
+\subsection{KY-123 Electric Wheelchair}
+The KY-123 electric wheelchair is a mobility aid that consists of the basic structure of a wheelchair, a motion control system, an electric engine, and a battery module. The advantage of this tool lies in its ability to be easily and comfortably controlled, minimizing the physical effort required by the user compared to a manual wheelchair. This is particularly beneficial for individuals with hemiplegia conditions, allowing operation with one hand. Additionally, this electric wheelchair provides better mobility solutions for the elderly who have limited movement capabilities.
+
+\begin{figure}[H]
+  \centering
+
+  % Change with the desired image file name and size
+  \includegraphics[scale=0.045]{gambar/kursi roda.png}
+
+  % Change with the desired image caption
+  \caption{KY-123 Electric Wheelchair}
+  \label{fig:roketluarangkasa}
+\end{figure}

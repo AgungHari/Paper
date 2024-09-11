@@ -1,0 +1,186 @@
+% Change the following title and label as desired.
+\section{Results and Discussion}
+\label{sec:resultsanddiscussion}
+
+% Modify the paragraphs in this section as desired.
+\subsection{FPS Testing}
+
+As shown in Table \ref{tb:FPSLaptop} on the right, the average FPS value in the laptop FPS test is 13.140. The highest FPS value is 13.23, and the lowest FPS is 13.05. Additionally, as seen in Table \ref{tb:FPSLaptop}, the average FPS value in the Intel NUC test is 6.111. The highest FPS value is 6.47, and the lowest FPS is 5.54.
+\begin{table}[H]
+    \centering
+    \caption{FPS Comparison Results on Laptop and NUC}
+    \label{tb:FPSLaptop}
+    \begin{tabular}{|c|c|c|}
+        \hline 
+        \cellcolor[HTML]{000000}                        & \cellcolor[HTML]{C0C0C0} \textbf{Laptop}  & \cellcolor[HTML]{C0C0C0} \textbf{NUC}  \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Average FPS} & 13.14                                      & 6.11                                    \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Maximum FPS}  & 13.23                                      & 6.47                                   \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Minimum FPS}   & 13.05                                      & 5.54                                    \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Response Time Testing}
+Based on the above output, the system's Response Time can be calculated and will be explained in Table \ref{tb:Hasil Pengujian Response Time}. The Response Time will be tested to obtain the time required for detection with the model, classification, and transmission to the ESP32 until the wheelchair motor starts moving. This test is conducted in real-time on the NUC device, with delay calculations obtained from the start of transmission until the motor stops. The inference time calculation starts from the beginning of the prediction process until the classification result is obtained. The average delay time obtained is 0.2494 seconds from the NUC test data, and the results can be seen in the table below. The average inference time obtained is 139.4899 ms or 0.1394899 seconds.
+\begin{table}[H]
+    \centering
+    \caption{Delay Results}
+    \label{tb:Hasil Pengujian Response Time}
+    \begin{tabular}{|c|c|c|}
+        \hline 
+        \cellcolor[HTML]{000000}                        & \cellcolor[HTML]{C0C0C0} \textbf{per second}  \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Average Delay} & 0.249                                                                        \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Maximum Delay}  & 0.379                                                                      \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Minimum Delay}   & 0.145                                                                      \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Inference Results}
+    \label{tb:Hasil Inference}
+    \begin{tabular}{|c|c|}
+        \hline 
+        \cellcolor[HTML]{000000}                        & \cellcolor[HTML]{C0C0C0} \textbf{per millisecond}   \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Average Inference} & 139.489                                                                       \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Maximum Inference}  & 181.100                                                                        \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Minimum Inference}   & 123.100                                                                       \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Detection Distance Accuracy Testing}
+
+This test evaluates the model's ability to generate distances based on calculations on the \emph{Bounding Box} and pose. The test compares the actual object distance with the system-generated distance on an Intel NUC against a standing human. Calibration was performed at a distance of 150 cm, chosen for pose and bounding box visibility. The resulting Focal Length is 480, with K1 and K2 values of 10.922 and 24.222, respectively. These values will be used in distance accuracy tests at 150 cm, 100 cm, and 50 cm. The test aims to evaluate the system's distance measurement capability.
+
+The test was conducted using a measuring tape attached to the camera and extended towards the researcher to obtain the distance. The values were calculated to obtain the average \emph{difference} or discrepancy produced by the system against actual measurements. The following table summarizes the average distance differences for each test.
+
+\begin{table}[H]
+    \centering
+    \caption{Summary of Detection Distance Accuracy Test Results}
+    \label{tb:ringkasan_pengukuran_kesesuaian}
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textit{Distance} & \textit{Yolo Bbox} & \textit{MediaPipe Shoulder} & \textit{MediaPipe Hand} \\ \hline
+    150 cm & 3.2 cm & 5.06 cm & 23.8 cm \\ \hline
+    100 cm & 20.8 cm & 2.2 cm & 3.53 cm \\ \hline
+    50 cm & 69.8 cm & 14.8 cm & 1.93 cm \\ \hline
+    \end{tabular}
+\end{table}
+
+In Table \ref{tb:ringkasan_pengukuran_kesesuaian}, it is shown that at a distance of 150 cm, the largest error is in the hand landmark with a percentage of 15.86\%, and the smallest error is in the Yolo Bbox at 2.13\%. At a distance of 100 cm, the largest error is in the Yolo Bbox with a percentage of 20.8\%, and the smallest is in the shoulder landmark with a percentage of 2.2\%. At a distance of 50 cm, the largest error is in the Yolo Bbox with a percentage of 139\%, and the smallest is in the hand landmark with a percentage of 3.86\%.
+\begin{table}[H]
+    \centering
+    \caption{Obstacle Avoidance Success Performance Table}
+    \label{tb:Agungganteng}
+    \begin{tabular}{|c|c|}
+    \hline
+    Trial & Result                                                               \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    4         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    5         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    6         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    7         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    8         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    9         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    10        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    11        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    12        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    13        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    14        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    15        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    16        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    17        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    18        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    19        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    20        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    21        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    22        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    23        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    24        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    25        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    26        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    27        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    28        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    29        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    30        & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided              \\ \hline
+    \end{tabular}
+    \end{table}
+
+In Table \ref{tb:Agungganteng}, the results show that avoidance was successful 30 times. Therefore, the success rate obtained from this test is 100\%. This result demonstrates that the system is capable of detecting and avoiding humans effectively.
+
+\subsection{Avoidance Accuracy Performance}
+The distance avoidance accuracy test measures the comparison between the system-generated avoidance distance and the real-world wheelchair avoidance distance from a human. The avoidance distance is set at 100 cm or 1 meter, meaning the wheelchair must avoid at this distance if a human is detected.
+
+\begin{table}[H]
+    \centering
+    \caption{Summary of Avoidance Accuracy Performance Results}
+    \label{tb:agungkeren}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textit{Distance set} & \textit{Real Error} & \textit{System Error} \\ \hline
+    100 cm & 33.1 cm & 29.3 cm\\ \hline
+    \end{tabular}
+\end{table}
+
+As shown in Table \ref{tb:agungkeren}, the average real measurement error is 33.1 cm, and the average system measurement error is 29.3 cm. The results do not match the set distance of 100 cm or 1 meter and tend to decrease in accuracy.
+
+This decrease is caused by several factors, including the camera's position shaking during testing, system delays, the laptop not being charged, limiting GPU usage, and decreased laptop performance during testing due to increased laptop heat over time, resulting in lower FPS.
+
+\subsection{Avoidance Success Performance with Two Obstacles}
+
+\begin{table}[H]
+    \centering
+    \caption{Avoidance Success Performance Table with Two Obstacles}
+    \label{tb:mantapkali}
+    \begin{tabular}{|c|c|}
+    \hline
+    Trial & Result                                                  \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    4         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    5         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    6         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    7         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    8         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    9         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    10         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    \end{tabular}
+    \end{table}
+
+The results show that avoidance was successful 10 times. Therefore, the success rate obtained from this test is 100\%. This result demonstrates that the system can detect and avoid two human obstacles effectively.
+
+\subsection{Avoidance Success Performance with Three Obstacles}
+\begin{table}[H]
+    \centering
+    \caption{Avoidance Success Performance Table with Three Obstacles}
+    \label{tb:mantapkali2}
+    \begin{tabular}{|c|c|}
+    \hline
+    Trial & Result                                                  \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    4         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    5         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    \end{tabular}
+    \end{table}
+
+The results show that avoidance was successful 5 times. Therefore, the success rate obtained from this test is 100\%. This result demonstrates that the system can detect and avoid three human obstacles effectively.
+
+\subsection{Avoidance Success Performance with Four Obstacles}
+\begin{table}[H]
+    \centering
+    \caption{Avoidance Success Performance Table with Four Obstacles}
+    \label{tb:mantapkali3}
+    \begin{tabular}{|c|c|}
+    \hline
+    Trial & Result                                                  \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Wheelchair Successfully Avoided \\ \hline
+    \end{tabular}
+    \end{table}
+
+The results show that avoidance was successful 3 times. Therefore, the success rate obtained from this test is 100\%. This result demonstrates that the system can detect and avoid four human obstacles effectively.

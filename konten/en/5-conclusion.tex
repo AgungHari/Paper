@@ -1,0 +1,29 @@
+% Change the following title and label as desired.
+\section{Conclusion}
+\label{sec:conclusion}
+
+% Modify the paragraphs in this section as desired.
+
+Based on the testing results, the following conclusions can be drawn:
+
+\begin{enumerate}
+  \item The model with the highest metrics trained with various configurations is the one with the highest mAP score at IoU 0.5 of 81.85\%. This value is sufficient for performing avoidance, as seen from the excellent avoidance performance results.
+  \item The performance of the NUC in FPS testing produced a lower value compared to the author's personal laptop, with a difference of 7.029 fps.
+  \item The average delay obtained in the testing was approximately 0.2494 seconds, and the average inference value obtained was 139.4899 ms or 0.1394 seconds.
+  \item The results show that detection using \emph{Bounding Box} and shoulder landmarks is more accurate at longer distances (150 cm and 100 cm), while arm landmarks are more accurate at closer distances (50 cm). The best average \emph{difference} for the bounding box at 150 cm is 3.2 cm, the best average \emph{difference} for shoulder landmarks at 100 cm is 2.2 cm, and the best average \emph{difference} for arm landmarks at 50 cm is 1.93 cm.
+  \item Detection performance results were satisfactory in 30 test samples, with a success rate of 100\%, indicating that the system created can avoid humans very well.
+
+\end{enumerate}
+
+\section{Suggestions}
+\label{chap:suggestions}
+
+For further development in future research, the following suggestions can be given:
+
+\begin{enumerate}
+
+  \item Increase the variety of datasets to enhance detection performance.
+  \item Use a device with better performance for higher fps.
+  \item Improve the detection grid performance by making more detailed adjustments for better mapping.
+  \item Use a device cooler when testing in an open room to avoid performance degradation.
+\end{enumerate}
