@@ -1,0 +1,395 @@
+% Ubah judul dan label berikut sesuai dengan yang diinginkan.
+\section{Desain dan Implementasi}
+\label{sec:desaindanimplementasi}
+
+\subsection{Deskripsi Sistem}
+\label{sec:deskripsisistem}
+Penelitian dan pembuatan sistem ini diterapkan sesuai dengan desain dan implementasi pada bab ini. Desain sistem ini mencakup konsep pembuatan, perancangan, alur, dan implementasi infrastruktur yang dibuat dalam Blok Diagram. Desain dan penerapan diilustrasikan melalui penggunaan Gambar dan akan dijelaskan mulai dari pengumpulan data berupa citra, analisa dari model yang telah dibuat untuk mendeteksi objek Manusia, serta sistem yang menggunakan model tesebut seperti Gambar \ref{fig:Blok Diagram Sistem yang digunakan.} dan dirincikan pada tiap subbab.
+
+\begin{figure}[H]
+  \centering
+
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.3]{gambar/Agungbaru blok.drawio.png}
+
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Blok Diagram Sistem}
+  \label{fig:Blok Diagram Sistem yang digunakan.}
+\end{figure}
+
+\subsection{Hardware}
+Perancangan hardware dilakukan sesuai dengan alur yang akan dideskripsikan pada sub- bab ini. Perangangan ini akan dipresentasikan dengan blok diagram alur yang telah merepre- sentasikan alur perancangan hardware ini. Gambar \ref{fig:Blok Hardware sistem.} merupakan blok diagram hardware yang akan ditampilkan sebagai berikut
+\begin{figure}[H]
+  \centering
+
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.3]{gambar/hardware.jpg}
+
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Blok Diagram Hardware}
+  \label{fig:Blok Hardware sistem.}
+\end{figure}
+
+\subsection{Software}
+Perancangan software dilakukan sesuai dengan alur yang akan dideskripsikan pada subbab ini. Perangangan ini akan dipresentasikan dengan blok diagram alur yang telah merepresentasikan alur perancangan software ini. Gambar \ref{fig:Diagram Software.} merupakan blok diagram alur akan ditampilkan sebagai berikut :
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale = 0.3]{gambar/labeling.jpg}
+    \caption{Diagram Blok Software}
+    \label{fig:Diagram Software.}
+\end{figure}
+
+\subsection{Klasifikasi YoloV8}
+Dalam proses pengklasifikasian, setiap citra yang telah melalui proses Labeling akan dikenali dengan menggunakan YoloV8 yang telah ditraining untuk mengenali Manusia yang terdapat pada citra. Model akan mendapatkan memberikan output sesuai dengan kelas manusia, nantinya hasil dari klasifikasi akan dijadikan acuan posisi pada grid deteksi.
+
+Model yang digunakan memiliki output kelas yaitu Manusia, adapun nilai yang diberikan oleh model yaitu berupa \emph{Bounding Box} dan Nilai Konfiden (\emph{Confidence Score}). Alur prosesnya dapat dilihat pada Gambar \ref{fig:Visualisasi Arsitektur YoloV8} yang merupakan blok diagram arsitektur.
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.19]{gambar/bab3_arsagung.png}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Visualisasi Arsitektur YoloV8}
+  \label{fig:Visualisasi Arsitektur YoloV8}
+\end{figure}
+
+Pada gambar \ref{fig:Visualisasi Arsitektur YoloV8 VisualKeras} Warna biru menunjukkan lapisan convolutional yang ada dalam backbone, neck, dan head. Warna kuning menunjukan C2f blok residual dengan convolution. Warna Hijau Muda menunjukkan SPPF lapisan Spatial Pyramid Pooling Fast. Merah Muda Menunjukkan lapisan UpSampling. Warna Ungu menunjukkan lapisan Concatenate untuk menggabungkan peta fitur.
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.06]{gambar/yolov8_architecture_custom.png}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Visualisasi Dengan VisualKeras}
+  \label{fig:Visualisasi Arsitektur YoloV8 VisualKeras}
+\end{figure}
+
+
+\sloppy
+
+YoloV8 menggunakan Convolutional Neural Networks (CNN) sebagai dasar arsitekturnya. Dalam YOLO, jaringan CNN digunakan untuk ekstraksi fitur dari gambar input dan kemudian menerapkan jaringan lain untuk memprediksi Bo unding Box dan kelas objek langsung dari gambar tersebut.
+
+Berdasarkan salah satu pelatihan yang telah dilakukan, model ini memiliki 225 \emph{Layer} atau lapisan, 3011043 parameter, dan 8.2 GFLOPs. Terdapat lapisan \emph{Convolution 2D (Conv2D)}, Blok C2f, Blok SPPF, Lapisan Upsampling, dan Lapisan Concat.Gambar \ref{fig:Arsitektur YoloV8 IO} merepresentasikan setiap jenis layer dengan input output.
+
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.24]{gambar/Arsitektur.jpg}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Arsitektur YoloV8}
+  \label{fig:Arsitektur YoloV8 IO}
+\end{figure}
+
+\subsection{Estimasi Pose MediaPipe}
+Dalam penelitian ini, beberapa landmark yang dianggap relevan adalah keypoint pada siku, lengan bawah, dan bahu kanan serta kiri. Titik-titik keypoint ini dipilih berdasarkan visibilitas dan konsistensi dalam deteksi. Tabel oxy menunjukkan nomor dan nama keypoint yang digunakan dalam estimasi pose.
+
+\begin{table}[ht]
+  \centering
+  \caption{Tabel Keypoint}
+  \label{tb:Tabel Keypoint}
+  \begin{tabular}{|c|c|}
+    \hline
+    \rowcolor[HTML]{C0C0C0}
+    \textbf{Nomor Keypoint} & \textbf{Nama Keypoint} \\
+    \hline
+    11 & RIGHT\_SHOULDER \\
+    12 & LEFT\_SHOULDER \\
+    14 & RIGHT\_ELBOW \\
+    16 & RIGHT\_WRIST \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+\subsection{Perhitungan Jarak}
+Salah satu cara untuk menghitung jarak dengan menggunakan bounding box adalah melalui konsep \emph{focal length pixel} ($f_p$). Fokus panjang dalam piksel, atau \emph{focal length pixel}, adalah konversi dari fokus panjang lensa kamera yang biasanya diukur dalam milimeter ke dalam satuan piksel. Ini merupakan konsep kunci dalam fotogrametri dan visi komputer yang digunakan untuk menghubungkan informasi visual dari kamera ke ukuran fisik di dunia nyata.
+
+Dalam konteks tugas akhir ini, fokus panjang dalam piksel digunakan untuk mengkonversi ukuran obstacle dari unit piksel menjadi unit meter. Hal ini penting karena kursi roda otonom perlu memahami jarak nyata ke obstacle untuk mengambil keputusan navigasi yang tepat. Rumusannya dapat dilihat pada Persamaan \ref{eq:rumus fp} :
+
+\begin{equation}
+\label{eq:rumus fp}
+f_p = \frac{D \times h_b}{H_o}
+\end{equation}
+
+Di mana:
+\begin{itemize}
+\item $f_p$ adalah \emph{focal length} dalam piksel,
+\item $D$ adalah jarak sebenarnya dari kamera ke objek,
+\item $h_b$ adalah tinggi bounding box dalam piksel,
+\item $H_o$ adalah tinggi sebenarnya dari objek.
+\end{itemize}
+
+Saat menghitung jarak ke objek, digunakan tinggi dari bounding box yang terdeteksi oleh YOLO, dikombinasikan dengan tinggi nyata objek yang diketahui dan fokus panjang dalam piksel. Sehingga membentuk Persamaan \ref{eq:Rumus Distance} sebagai berikut:
+
+\begin{equation}
+\label{eq:Rumus Distance}
+D = \frac{f_p \times H_o}{h_b}
+\end{equation}
+
+Di sini:
+\begin{itemize}
+\item $H_o$ merupakan tinggi rata-rata manusia atau objek lain yang diidentifikasi sebagai obstacle.
+\end{itemize}
+
+Pendekatan lain dalam menentukan jarak dengan menggunakan pose adalah melalui metode Jarak Euclidean. Jarak Euclidean dalam piksel adalah metode untuk mengukur jarak lurus antara dua titik dalam ruang gambar, yang biasanya diukur dalam piksel. Dalam konteks tugas akhir ini, yang melibatkan kursi roda otonom dengan integrasi MediaPipe, pengukuran ini sangat penting untuk berbagai fungsi, terutama dalam analisis pose dan penilaian proporsi objek dalam citra yang dihasilkan oleh kamera. Rumusannya dapat dilihat pada Persamaan \ref{eq:Euclidean Distance}
+
+\begin{equation}
+\label{eq:Euclidean Distance}
+d_p = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \times s_f
+\end{equation}
+
+Di mana:
+\begin{itemize}
+\item $d_p$ adalah jarak Euclidean dalam piksel,
+\item $(x_1, y_1)$ dan $(x_2, y_2)$ adalah koordinat dua titik yang diukur dalam piksel,
+\item $s_f$ adalah faktor skala.
+\end{itemize}
+
+Rumus ini menghasilkan jarak antara dua titik dalam satuan yang sama dengan satuan koordinat $x_1, y_1$ dan $x_2, y_2$. Biasanya, jika koordinat-koordinat ini diukur dalam piksel, maka jarak yang dihasilkan juga akan dalam piksel.
+
+Dari perhitungan di atas, masih didapatkan jarak yang bernilai piksel. Dalam konteks perhitungan jarak, perlu menggunakan nilai standar dalam meter agar perhitungan tersebut sesuai dengan kaidah yang berlaku pada umumnya. Agar nilai piksel tersebut dapat diubah menjadi meter, perlu dilakukan kalibrasi menggunakan nilai \emph{K}. Nilai \emph{K} merupakan nilai kalibrasi berdasarkan pengukuran eksperimental. Sehingga didapat Persamaan \ref{eq:Konstanta Jarak} sebagai berikut:
+
+\begin{equation}
+\label{eq:Konstanta Jarak}
+D_m = \left(\frac{K}{{d_p}}\right)
+\end{equation}
+
+Di mana:
+\begin{itemize}
+\item $D_m$ adalah jarak dalam meter,
+\item $K$ adalah konstanta kalibrasi,
+\item $d_p$ adalah jarak dalam piksel.
+\end{itemize}
+
+Nilai \emph{K} menentukan seberapa besar pengaruh jarak dalam piksel terhadap jarak dalam meter. Nilai yang lebih besar atau lebih kecil akan secara langsung mempengaruhi hasil perhitungan jarak. Misalnya, nilai \emph{K} yang lebih besar akan menghasilkan jarak yang lebih kecil untuk jumlah piksel yang sama. Nilai ini digunakan dalam konteks yang sangat spesifik di mana parameter tersebut menggambarkan hubungan langsung antara ukuran piksel dan jarak atau dimensi nyata, berdasarkan asumsi spesifik tentang geometri scene dan karakteristik kamera.
+
+Nilai ini harus dikalibrasi secara akurat agar sesuai dengan karakteristik spesifik kamera dan setup yang digunakan. Kalibrasi yang tidak tepat akan menghasilkan pengukuran jarak yang tidak akurat, yang dapat berdampak pada keputusan navigasi kursi roda otonom. Berikut rumus untuk pengkalibrasian nilai K menggunakan Persamaan \ref{eq:nilaiK}:
+
+\begin{equation}
+\label{eq:nilaiK}
+K = J_o \times U_p
+\end{equation}
+
+Di mana:
+\begin{itemize}
+\item $J_o$ adalah jarak nyata objek,
+\item $U_p$ adalah ukuran objek dalam piksel.
+\end{itemize}
+
+Dalam perhitungan lebar obstacle, digunakan perhitungan jarak Euclidean, namun dengan konteks aplikasi yang berbeda. Kedua pendekatan ini berbeda dalam aplikasi dan konteksnya. Perbedaan tersebut dapat dilihat pada Persamaan \ref{eq:Euclidean Lebar}
+
+\begin{equation}
+\label{eq:Euclidean Lebar}
+l_p = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \times s_f
+\end{equation}
+
+Nilai output yang didapatkan adalah lebar manusia dalam satuan piksel. Untuk memetakan lebar dari piksel ke meter, perlu dibuat rumus konversi yang menentukan ukuran dalam piksel (yang merupakan ukuran digital dan relatif) ke ukuran dunia nyata (meter). Rumusannya dapat dilihat pada Persamaan \ref{eq:Lebar Meter}:
+
+\begin{equation}
+\label{eq:Lebar Meter}
+l_m = l_p \times s_f
+\end{equation}
+
+Dengan mengalikan lebar objek dalam piksel dengan faktor skala, hasilnya adalah lebar objek dalam meter. Rumus ini berguna dalam aplikasi di mana perlu mengetahui dimensi fisik objek dalam dunia nyata untuk membuat keputusan atau pengukuran yang tepat.
+
+Faktor skala adalah nilai yang mengonversi ukuran dari unit piksel ke unit meter. Nilai ini diperoleh melalui proses kalibrasi. Faktor skala menentukan berapa meter yang diwakili oleh setiap piksel dalam gambar, berdasarkan jarak kamera ke objek dan pengaturan kamera lainnya seperti fokus panjang. Selain itu, perlu diketahui bahwa faktor skala yang digunakan pada rumus ini berbeda dengan rumus jarak yang sebelumnya dijabarkan. Berikut rumus untuk mengkalibrasi faktor skala dalam konteks lebar objek pada Persamaan \ref{eq:faktorskala}:
+
+\begin{equation}
+\label{eq:faktorskala}
+s_f = \frac{D_n}{U_p}
+\end{equation}
+
+Di mana:
+\begin{itemize}
+\item $D_n$ adalah dimensi nyata rata-rata,
+\item $U_p$ adalah ukuran dalam piksel rata-rata.
+\end{itemize}
+
+Dalam perhitungan lebar obstacle, digunakan perhitungan jarak Euclidean, namun dengan konteks aplikasi yang berbeda. Kedua pendekatan ini berbeda dalam aplikasi dan konteksnya. Perbedaan tersebut dapat dilihat pada Persamaan \ref{eq:Euclidean Lebar}
+
+\begin{equation}
+\label{eq:Euclidean Lebar}
+l_p = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2} \times s_f
+\end{equation}
+
+Nilai output yang didapatkan adalah lebar manusia dalam satuan piksel. Untuk memetakan lebar dari piksel ke meter, perlu dibuat rumus konversi yang menentukan ukuran dalam piksel (yang merupakan ukuran digital dan relatif) ke ukuran dunia nyata (meter). Rumusannya dapat dilihat pada Persamaan \ref{eq:Lebar Meter}:
+
+\begin{equation}
+\label{eq:Lebar Meter}
+l_m = l_p \times s_f
+\end{equation}
+
+Dengan mengalikan lebar objek dalam piksel dengan faktor skala, hasilnya adalah lebar objek dalam meter. Rumus ini berguna dalam aplikasi di mana perlu mengetahui dimensi fisik objek dalam dunia nyata untuk membuat keputusan atau pengukuran yang tepat.
+
+Faktor skala adalah nilai yang mengonversi ukuran dari unit piksel ke unit meter. Nilai ini diperoleh melalui proses kalibrasi. Faktor skala menentukan berapa meter yang diwakili oleh setiap piksel dalam gambar, berdasarkan jarak kamera ke objek dan pengaturan kamera lainnya seperti fokus panjang. Selain itu, perlu diketahui bahwa faktor skala yang digunakan pada rumus ini berbeda dengan rumus jarak yang sebelumnya dijabarkan. Berikut rumus untuk mengkalibrasi faktor skala dalam konteks lebar objek pada Persamaan \ref{eq:faktorskala}:
+
+\begin{equation}
+\label{eq:faktorskala}
+s_f = \frac{D_n}{U_p}
+\end{equation}
+
+Di mana:
+\begin{itemize}
+\item $D_n$ adalah dimensi nyata rata-rata,
+\item $U_p$ adalah ukuran dalam piksel rata-rata.
+\end{itemize}
+
+Nilai-nilai ini dapat digunakan dalam kode untuk mengonversi ukuran dalam piksel ke ukuran nyata berdasarkan pengukuran yang telah dikalibrasi. Kalibrasi harus dilakukan dengan baik dan benar untuk mendapatkan hasil yang akurat.
+
+\subsection{Implementasi Grid}
+Dalam tugas akhir ini, kursi roda otonom harus dapat mengetahui posisi obstacle yang akan dilaluinya. Oleh karena itu, diperlukan sebuah peta yang dapat digunakan sebagai acuan kursi roda untuk mengambil tindakan berdasarkan jarak obstacle dan lebar obstacle yang akan menjadi acuan untuk menjawab permasalahan, yaitu di titik mana kursi roda harus menghindar dan apakah obstacle berhasil dihindari. Grid menjadi salah satu pendekatan terbaik dalam memetakan hasil deteksi. Penggunaan grid tidak hanya mempermudah pengambilan tindakan, tetapi juga memberikan visualisasi yang mudah dimengerti. Ukuran grid juga dapat disesuaikan sesuai dengan kebutuhan, baik dimensi maupun tampilannya.
+
+Setelah perhitungan rumus di atas diimplementasikan dalam kode, akan didapatkan beberapa variabel penting yang akan digunakan dalam memetakan posisi maupun ukuran obstacle dalam grid. Sebelum itu, berikut adalah tampilan grid yang digunakan dapat dilihat pada Gambar \ref{fig:Grid10x10} sebagai berikut:
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.2]{gambar/gridtanpakamera2.jpg}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Grid 10x10.}
+  \label{fig:Grid10x10}
+\end{figure}
+
+Grid dibuat menggunakan library OpenCV. Library ini digunakan atas dasar implementasinya yang mudah dan ringan. Agar Lebih mudah dimengerti, penjelasan akan disertai dengan visualisasi 3d melalui blender pada Gambar \ref{fig:gridxblendxmanusiatengah}. 
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.15]{gambar/elbaruelbaru.png}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Visualisasi Grid dengan blender.}
+  \label{fig:gridxblendxmanusiatengah}
+\end{figure}
+
+
+Penggunaan grid 10x10 didasari atas hasil citra dan performa model. Baik bounding box maupun pose memiliki keterbatasan di mana hasil perhitungannya tidak melebihi parameter yang akan ditetapkan pada grid. Parameter tersebut dapat dilihat pada Gambar \ref{fig:Parameter grid} sebagai berikut:
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.2]{gambar/02meter.jpg}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Parameter untuk setiap kotak grid.}
+  \label{fig:Parameter grid}
+\end{figure}
+
+Dari gambar di atas, setiap kotak dalam grid bernilai 0.2 meter baik dalam posisi vertikal maupun horizontal. Penentuan nilai 0.2 meter per kotak ini didasarkan pada hasil kalibrasi dan pengukuran eksperimental yang memastikan ukuran ini optimal untuk deteksi obstacle yang akurat dan efisien.
+
+Untuk memetakan objek dengan baik dalam grid, perlu dibuat indeks untuk mengetahui posisi relatif kiri dan kanan objek terhadap kamera. Untuk 10 kotak horizontal, akan dibagi menjadi indeks kiri dan kanan, di mana indeks 1 sampai 5 dikategorikan sebagai indeks kiri, dan indeks 6 hingga 10 dikategorikan sebagai indeks kanan. Pengambilan keputusan ini terkait dengan posisi kursi roda statis pada grid, yang digambarkan pada Gambar \ref{fig:Posisi Kursi Pada Grid.} sebagai berikut:
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.2]{gambar/gridkamera.jpg}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Posisi Kursi Pada grid.}
+  \label{fig:Posisi Kursi Pada Grid.}
+\end{figure}
+
+Dapat dilihat bahwa posisi kursi roda mengambil 2 kotak grid hijau pada bagian (5,1) dan (6,1). Keputusan ini didasarkan pada lebar kursi roda yang sesuai dengan ukuran grid. Posisi atas menentukan indeks mana yang merupakan bagian kiri maupun kanan dalam grid. Dengan posisi atas yang ditetapkan sebagai posisi konstan kursi roda dan hasil input citra yang didapatkan berlawanan dengan hasil deteksi (mirror), maka indeks dapat digambarkan sesuai Gambar \ref{fig:Kategori Posisi berdasarkan index.}  sebagai berikut:
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.2]{gambar/posisi index sebenarnya.png}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Kategori Posisi berdasarkan Index.}
+  \label{fig:Kategori Posisi berdasarkan index.}
+\end{figure}
+
+Pengkategorian ini berperan penting dalam pengambilan keputusan belok kursi roda, di mana nantinya hasil deteksi yang berupa jarak, lebar, serta posisi relatif akan ditampilkan pada grid.
+
+\subsection{Navigasi Penghindaran Kursi Roda}
+
+\subsubsection{Hasil Tanpa Deteksi}
+Pada kondisi ini tidak ada objek yang terdeteksi, yang berarti tidak ada obstacle yang menghalangi jalan kursi roda oleh karena itu kursi roda akan terus bergerak maju. Pada kondisi ini bounding box, pose, grid dan lainya tidak ditampilkan karena tidak ada manusia yang terdetksi. dapat dilihat pada contoh gambar \ref{fig:Kondisi tanpa deteksi}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{gambar/masukinkebuku.png}
+    \caption{Contoh kondisi tidak terdeteksi Manusia.}
+    \label{fig:Kondisi tanpa deteksi}
+\end{figure}
+
+Dapat dilihat pada gambar \ref{fig:Kondisi tanpa deteksi}, terdapat teks "Manusia Tidak Terdeteksi" yang berarti tidak ada objek manusia yang terdeteksi.
+
+\subsubsection{Hasil deteksi objek pada grid menunjukan Index Kiri Lebih besar
+dari Index kanan}
+Pada kondisi ini posisi hasil deteksi menunjukan nilai yang lebih besar pada Index kiri (Index 1-5) yang berarti bahwa objek sedang berada pada sebelah kiri posisi terhadap kursi roda. Dapat dilihat pada contoh gambar dibawah.
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.2]{gambar/BelokKananbos.png}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Contoh kondisi Index Kiri \textgreater Kanan .}
+  \label{fig:Kondisi Index Kiri>Kanan.}
+\end{figure}
+
+Dapat dilihat pada gambar \ref{fig:Kondisi Index Kiri>Kanan.}, grid nilainya lebih mengarah index kiri dari pada kanan. Dimana dilihat dari pertimbangan posisi tersebut maka kursi roda akan menghindar ke Kanan yang merupakan belokan yang lebih aman ketimbang belokan ke kiri.
+
+Kursi roda baru dapat dikatakan menghindar jika dapat kembali ke arah asal, dengan demikian Gambar \ref{fig:Skematik Kondisi Index Kiri>Kanan.} adalah gambar skematik penghindaran yang akan dilalui dalam kondisi ini.
+
+\begin{figure}[H]
+  \centering
+  % Ubah dengan nama file gambar dan ukuran yang akan digunakan
+  \includegraphics[scale=0.06]{gambar/ManusiaKiriNavigasi.png}
+  % Ubah dengan keterangan gambar yang diinginkan
+  \caption{Skematik penghindaran pada kondisi Index Kiri \textgreater Kanan.}
+  \label{fig:Skematik Kondisi Index Kiri>Kanan.}
+\end{figure}
+
+Dapat dilihat pada Gambar \ref{fig:Skematik Kondisi Index Kiri>Kanan.} saat kursi roda sudah pada jarak 1 meter deteksi, maka akan berbelok sesuai dengan kondisi index dan menyimpan arah belokan ini. Apabila sudah tidak tergambar bounding box maka kursi roda akan maju selama 4 detik, lalu mengecek arah belokan terakhir. Setelah itu kursi roda akan Belok lagi sesuai dengan arah terakhir selama 5 detik, lalu mereset kondisi arah terakhir. Terakhir pada kondisi ini kursi roda akan masuk ke kondisi tanpa deteksi, sehingga ia akan terus bergerak maju hingga deteksi selanjutnya.
+
+\subsubsection{ Hasil deteksi objek pada grid menunjukan index Kanan lebih be-
+sar dari Index kiri}
+
+Pada kondisi ini posisi hasil deteksi menunjukan nilai yang lebih besar pada index kanan (6-10) yang berarti bahwa objek sedang berada pada sebelah kanan posisi terhadap kursi roda. dapat dilihat pada contoh gambar \ref{fig:Kondisi Index Kanan>Kiri}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{gambar/BelokKiribos.png}
+    \caption{Contoh kondisi Index Kanan \textgreater kiri}
+    \label{fig:Kondisi Index Kanan>Kiri}
+\end{figure}
+
+Dapat dilihat pada gambar \ref{fig:Kondisi Index Kanan>Kiri}, grid nilainya lebih mengarah index kanan dari pada kiri. Dimana dilihat dari pertimbangan posisi tersebut maka kursi roda akan menghindar ke kiri yang merupakan belokan yang lebih aman ketimbang belokan ke kanan.
+
+Kursi roda baru dapat dikatakan menghindar jika dapat kembali ke arah asal, dengan demikian Gambar \ref{fig:Skematik Kondisi Index Kanan>Kiri} adalah gambar skematik penghindaran yang akan dilalui dalam kondisi ini.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.06]{gambar/ManusiaKananNavigasi.png}
+  \caption{Skematik penghindaran pada Contoh kondisi Index Kanan \textgreater Kiri.}
+  \label{fig:Skematik Kondisi Index Kanan>Kiri}
+\end{figure}
+
+Dapat dilihat pada Gambar \ref{fig:Skematik Kondisi Index Kanan>Kiri} saat kursi roda sudah pada jarak 1 meter deteksi, maka akan berbelok sesuai dengan kondisi index dan menyimpan arah belokan ini. Apabila sudah tidak tergambar bounding box maka kursi roda akan maju selama 4 detik, lalu mengecek arah belokan terakhir. Setelah itu kursi roda akan Belok lagi sesuai dengan arah terakhir selama 5 detik, lalu mereset kondisi arah terakhir. Terakhir pada kondisi ini kursi roda akan masuk ke kondisi tanpa deteksi, sehingga ia akan terus bergerak maju hingga deteksi selanjutnya.
+
+\subsubsection{Hasil deteksi objek pada grid menunjukan posisi Linear terhadap
+kursi roda}
+
+Pada kondisi ini perlu ditambahkan sebuah perintah untuk pengambilan keputusan dimana posisi belok pada kondisi ini baik melalui kanan maupun kiri tidak akan memiliki kelebihan/kekurangan karena dalam posisi ini nilai index sama besarnya baik kanan maupun kiri. sehingga perlu dilakukan pendekatan yang baik agar pengambilan keputusan ini tidak menimbulkan kesalahan. Pada tugas proyek ini pengambilan keputusan ini didasari pada nilai random. Sehingga keputusan yang diambil bisa ke kanan maupun ke kiri. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.2]{gambar/linierbos.png}
+    \caption{Contoh kondisi Liniear.}
+    \label{fig:Kondisi Linear}
+\end{figure}
+
+Dapat dilihat pada gambar \ref{fig:Kondisi Linear}, gridnya sejajar dengan posisi kursi roda. Sehingga penggunaan random akan sangat berguna untuk mengabil keputusan apabila menghadapi kasus seperti ini.
+
+Kursi roda baru dapat dikatakan menghindar jika dapat kembali ke arah asal, dengan demikian Gambar \ref{fig:Skematik Kondisi Linier} adalah gambar skematik penghindaran yang akan dilalui dalam kondisi ini.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.06]{gambar/ManusiaTengahNavigasi.png}
+  \caption{Skematik penghindaran pada Contoh kondisi Linier.}
+  \label{fig:Skematik Kondisi Linier}
+\end{figure}
+
+Dapat dilihat pada Gambar \ref{fig:Skematik Kondisi Linier} saat kursi roda sudah pada jarak 1 meter deteksi, maka akan berbelok sesuai dengan kondisi index dan menyimpan arah belokan ini. Apabila sudah tidak tergambar bounding box maka kursi roda akan maju selama 4 detik, lalu mengecek arah belokan terakhir. Setelah itu kursi roda akan Belok lagi sesuai dengan arah terakhir selama 5 detik, lalu mereset kondisi arah terakhir. Terakhir pada kondisi ini kursi roda akan masuk ke kondisi tanpa deteksi, sehingga ia akan terus bergerak maju hingga deteksi selanjutnya.
+
+

@@ -1,0 +1,186 @@
+% Ubah judul dan label berikut sesuai dengan yang diinginkan.
+\section{Hasil dan Pembahasan}
+\label{sec:hasildanpembahasan}
+
+% Ubah paragraf-paragraf pada bagian ini sesuai dengan yang diinginkan.
+\subsection{Pengujian FPS}
+
+Dapat dilihat pada tabel \ref{tb:FPSLaptop} pada bagian kanan, didapatkan pada pengujian nilai fps laptop ini nilai rata - rata FPS sebesar 13.140. Dimana nilai FPS tertinggi adalah sebesar 13.23 dan FPS paling rendah ialah 13.05.  Selain itu dapat dilihat pada tabel \ref{tb:FPSLaptop}, didapatkan pada pengujian ini nilai rata - rata FPS pada intel NUC sebesar 6.111. Dimana nilai FPS tertinggi yang didapatkan ialah 6.47 dan FPS paling rendah ialah 5.54. 
+\begin{table}[H]
+    \centering
+    \caption{Hasil Perbandingan FPS pada Laptop dan NUC}
+    \label{tb:FPSLaptop}
+    \begin{tabular}{|c|c|c|}
+        \hline 
+        \cellcolor[HTML]{000000}                        & \cellcolor[HTML]{C0C0C0} \textbf{Laptop}  & \cellcolor[HTML]{C0C0C0} \textbf{NUC}  \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Rata-rata FPS} & 13,14                                      & 6,11                                    \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{FPS Maksimum}  & 13,23                                      & 6,47                                   \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{FPS Minimum}   & 13,05                                      & 5,54                                    \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Pengujian Berdasarkan Response Time}
+Berdasarkan output diatas dapat dihitung Response Time sistem yang akan jabarkan pada tabel \ref{tb:Hasil Pengujian Response Time} Hasil Response Time akan diuji untuk mendapatkan waktu yang dibutuhkan untuk melakukan pendeteksian dengan model yang kemudian diklasifikasi dan dikirim ke ESP32 hingga motor kursi roda mulai bergerak. Pengujian ini dilakukan secara real time pada perangkat NUC, perhitungan delay didapatkan dari mulai dikirim hingga berhentinya motor pada kursi roda. sedangkan perhitungan inference time dimulai dari dimulainya proses prediksi hingga didapatkan hasil dari proses klasifikasi. Rata - rata waktu delay yang didapatkan adalah 0.2494 detik dari data yang sudah didapatkan dari pengujian NUC, adapun hasil nya dapat dilihat pada tabel dibawah. Adapun nilai inference rata-rata yang didapatkan adalah  139.4899 ms atau 0.1394899 detik
+\begin{table}[H]
+    \centering
+    \caption{Hasil Delay}
+    \label{tb:Hasil Pengujian Response Time}
+    \begin{tabular}{|c|c|c|}
+        \hline 
+        \cellcolor[HTML]{000000}                        & \cellcolor[HTML]{C0C0C0} \textbf{per second}  \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Rata-rata Delay} & 0,249                                                                        \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Delay Maksimum}  & 0,379                                                                      \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{FPS Minimum}   & 0,145                                                                      \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Hasil Inference}
+    \label{tb:Hasil Inference}
+    \begin{tabular}{|c|c|}
+        \hline 
+        \cellcolor[HTML]{000000}                        & \cellcolor[HTML]{C0C0C0} \textbf{per milisecond}   \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Rata-rata Inference} & 139,489                                                                       \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Inference Maksimum}  & 181,100                                                                        \\ \hline
+        \cellcolor[HTML]{C0C0C0} \textbf{Inference Minimum}   & 123,100                                                                       \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Pengujian Kesesuaian Jarak Deteksi}
+
+Pengujian ini dilakukan pengetasan terhadap model dalam menghasilkan jarak berdasarkan hasil perhitungan pada \emph{Bounding Box} dan pose. Pengujian ini dilakukan dengan membandingkan jarak objek asli dengan jarak yang dihasilkan sistem pada Intel NUC terhadap manusia yang berdiri tegak. Kalibrasi telah dilakukan pada jarak 150cm, jarak ini diambil atas dasar visibilitas pose dan bounding box. Sehingga didapatkan nilai Focal Length sebesar 480, serta nilai K1 dan K2 sebesar 10.922 dan 24.222. Nilai-nilai tersebut akan digunakan dalam pengujian kesesuaian jarak pada 150cm, 100cm dan 50cm. Adapun tujuan dilakukan pengujian ini untuk menguji kemampuan sistem dalam mengukur jarak.
+
+Pengujian ini dilakukan menggunakan alat ukur meteran yang ditancapkan pada kamera dan ditarik menuju peneliti untuk mendapatkan jarak. Nilai tersebut akan dihitung untuk diambil nilai rata rata \emph{difference} atau perbedaan yang dihasilkan dari sistem terhadap pengukuran nyata. Berikut merupakan nilai rata-rata selisih jarak dari masing masing pengujian.
+
+\begin{table}[H]
+    \centering
+    \caption{Ringkasan Hasil Pengujian Kesesuaian Jarak Deteksi}
+    \label{tb:ringkasan_pengukuran_kesesuaian}
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \textit{Distance} & \textit{Yolo Bbox} & \textit{MediaPipe Shoulder} & \textit{MediaPipe Hand} \\ \hline
+    150cm & 3.2 cm & 5.06 cm & 23.8 cm \\ \hline
+    100cm & 20.8 cm & 2.2 cm & 3.53 cm \\ \hline
+    50cm & 69.8 cm & 14.8 cm & 1.93 cm \\ \hline
+    \end{tabular}
+\end{table}
+
+Pada tabel \ref{tb:ringkasan_pengukuran_kesesuaian} didapatkan pada masing - masing jarak nilai error terbesar pada 150cm ialah Landmark lengan dengan presentase 15,86\%, dan terkecil pada Yolo Bbox pada 2,13\%. Nilai error terbesar pada jarak 100cm adalah Yolo Bbox dengan presentase 20,8\% , dan terkecil pada landmark Bahu dengan presentase 2,2\%. Nilai error terbesar pada jarak 50cm adalah Yolo Bbox dengan presentase sebesar 139\%, dan terkecil landmark lengan dengan presentase 3,86\%.
+\begin{table}[H]
+    \centering
+    \caption{Tabel Performa Keberhasilan Penghindaran}
+    \label{tb:Agungganteng}
+    \begin{tabular}{|c|c|}
+    \hline
+    Percobaan & Hasil                                                               \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    4         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    5         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    6         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    7         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    8         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    9         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    10        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    11        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    12        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    13        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    14        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    15        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    16        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    17        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    18        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    19        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    20        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    21        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    22        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    23        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    24        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    25        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    26        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    27        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    28        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    29        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    30        & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar              \\ \hline
+    \end{tabular}
+    \end{table}
+
+Pada Tabel \ref{tb:Agungganteng} Hasil yang didapatkan Penghindaran berhasil sebanyak 30 kali. Sehingga didapatkan presentase keberhasilan yang didapatkan dari hasil uji ini sebesar 100\%. Hasil ini membuktikan sistem yang dibuat mampu untuk mendeteksi dan menghindari manusia dengan baik.
+
+\subsection{Performa Akurasi Penghindaran}
+Pengujian akurasi jarak penghindaran dilakukan dengan mengukur perbandingan antara jarak pengukuran saat kursi roda melakukan penghindaran yang dihasilkan sistem dan jarak kursi roda saat penghindaran terhadap Manusia pada dunia nyata. Jarak yang ditetapkan dalam Penghindaran ialah pada 100 cm atau 1 meter, yang berarti kursi roda harus menghindar pada jarak yang ditentukan apabila ada Manusia yang terdeteksi. 
+
+\begin{table}[H]
+    \centering
+    \caption{Ringkasan Hasil Performa Akurasi Penghindaran}
+    \label{tb:agungkeren}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textit{Distance set} & \textit{Real Error} & \textit{System Error} \\ \hline
+    100cm & 33.1 cm & 29.3 cm\\ \hline
+    \end{tabular}
+\end{table}
+
+Dapat dilihat pada Tabel \ref{tb:agungkeren} didapatkan rata- rata error pengukuran nyata sebesar 33,1 cm dan rata rata error pengukuran sistem sebesar 29,3. Dimana hasil yang didapatkan tidak sesuai dengan jarak yang ditetapkan yaitu 100cm atau 1 meter, dan cenderung mengalami penurunan akurasi.
+
+Penurunan ini disebabkan oleh beberapa faktor, yaitu posisi kamera yang terguncang seiring pengujian, delay pada sistem, laptop yang tidak di charge membuat pemakaian gpu menjadi terbatas dan penurunan performa laptop selama pengujian yang diakibatkan oleh panas laptop yang meningkat seiring dengan waktu pengujian menyebabkan menurunnya FPS yang didapatkan.
+
+\subsection{Performa Keberhasilan Penghindaran dengan Dua Obstacle}
+
+\begin{table}[H]
+    \centering
+    \caption{Tabel Performa Keberhasilan Penghindaran dua obstacle}
+    \label{tb:mantapkali}
+    \begin{tabular}{|c|c|}
+    \hline
+    Percobaan & Hasil                                                  \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    4         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    5         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    6         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    7         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    8         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    9         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    10         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    \end{tabular}
+    \end{table}
+
+Berdasarkan Hasil yang didapatkan Penghindaran berhasil sebanyak 10 kali. Sehingga didapatkan presentase yang didapatkan dari hasil uji ini sebesar 100\%. Hasil ini membuktikan sistem yang dibuat mampu untuk mendeteksi dan menghindari dua obstacle manusia.
+
+\subsection{Performa Keberhasilan Penghindaran dengan Tiga Obstacle}
+\begin{table}[H]
+    \centering
+    \caption{Tabel Performa Keberhasilan Penghindaran Tiga obstacle}
+    \label{tb:mantapkali2}
+    \begin{tabular}{|c|c|}
+    \hline
+    Percobaan & Hasil                                                  \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    4         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    5         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    \end{tabular}
+    \end{table}
+
+Berdasarkan Hasil yang didapatkan Penghindaran berhasil sebanyak 5 kali. Sehingga didapatkan presentasi yang didapatkan dari hasil uji ini sebesar 100\%. Hasil ini membuktikan sistem yang dibuat mampu untuk mendeteksi dan menghindari tiga obstacle manusia.
+
+\subsection{Performa Keberhasilan Penghindaran dengan Empat Obstacle}
+\begin{table}[H]
+    \centering
+    \caption{Tabel Performa Keberhasilan Penghindaran Empat obstacle}
+    \label{tb:mantapkali3}
+    \begin{tabular}{|c|c|}
+    \hline
+    Percobaan & Hasil                                                  \\ \hline
+    1         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    2         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    3         & \cellcolor[HTML]{9AFF99}Kursi Roda Berhasil Menghindar \\ \hline
+    \end{tabular}
+    \end{table}
+
+Berdasarkan Hasil yang didapatkan Penghindaran berhasil sebanyak 3 kali. Sehingga didapatkan presentasi yang didapatkan dari hasil uji ini sebesar 100\%. Hasil ini membuktikan sistem yang dibuat mampu untuk mendeteksi dan menghindari tiga obstacle manusia.

@@ -1,0 +1,29 @@
+% Ubah judul dan label berikut sesuai dengan yang diinginkan.
+\section{Kesimpulan}
+\label{sec:kesimpulan}
+
+% Ubah paragraf-paragraf pada bagian ini sesuai dengan yang diinginkan.
+
+Berdasarkan hasil pengujian yang telah dilakukan, dapat diambil kesimpulan sebagai berikut:
+
+\begin{enumerate}
+  \item Model dengan Metrics tertinggi yang telah di-training dengan berbagai konfigurasi adalah model dengan skor mAP di IoU 0.5 tertinggi sebesar 81.85\%. Adapun nilai yang didapatkan ini sudah cukup baik untuk melakukan penghindaran dilihat pada hasil performa penghindaran yang sangat baik.
+  \item Performa NUC dalam pengujian FPS menghasilkan Nilai yang lebih rendah ketimbang Laptop pribadi Penulis dengan selisih 7.029 fps.
+  \item Rata - rata delay yang didapatkan pada pengujian adalah sekitar 0.2494 detik dan rata- rata nilai inference yang didapatkan 139.4899 ms atau 0.1394 detik.
+  \item Hasil menunjukkan bahwa deteksi menggunakan \emph{Bounding box} dan Landmark bahu lebih akurat pada jarak yang lebih jauh (150 cm dan 100cm), sedangkan landmark lengan lebih akurat pada jarak yang lebih dekat (50 cm). Dimana rata-rata \emph{difference} terbaik bounding box yaitu pada jarak 150cm sebesar 3.2 cm, rata-rata \emph{difference} landmark bahu terbaik yaitu pada jarak 100cm sebesar 2.2 cm dan rata-rata \emph{difference} landmark lengan terbaik yaitu pada jarak 50cm sebesar 1.93 cm.
+  \item Hasil Performa Deteksi menunjukan hasil yang memuaskan dalam 30 sampel pengujian. Dengan presentasi keberhasilan sebesar 100\% yang menunjukan bahwa sistem yang dibuat dapat menghindari manusia dengan sangat baik.
+
+\end{enumerate}
+
+\section{Saran}
+\label{chap:saran}
+
+Untuk pengembangan lebih lanjut pada penelitian selanjutnya, adapun saran yang bisa diberikan antara lain:
+
+\begin{enumerate}
+
+  \item Variasi dataset yang lebih ditingkat untuk meningkatkan performa deteksi
+  \item Menggunakan Device yang memiliki performa yang lebih baik untuk fps yang lebih tinggi
+  \item Meningkatkan performa grid deteksi dengan melakukan penyesuaian yang lebih detail untuk pemetaan yang lebih baik lagi.
+  \item Menggunakan pendingin device saat melakukan pengujian di ruangan terbuka agar tidak mengalami penurunan performa.
+\end{enumerate}
